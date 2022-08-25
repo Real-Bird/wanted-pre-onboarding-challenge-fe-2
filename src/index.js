@@ -1,6 +1,14 @@
 /**
- * @constant
- * @type {Object}
+ * @typedef {Object} ToDo
+ * @property {number} id - ToDo id
+ * @property {string} content - ToDo 상세 내용
+ * @property {boolean} isDone - ToDo 종료 여부
+ * @property {string} categories - ToDo 분류
+ * @property {string} [tags] - 추가하고 싶은 태그
+ */
+
+/**
+ * @type {ToDo}
  */
 const ToDo = {
   id,
@@ -11,7 +19,7 @@ const ToDo = {
 };
 
 /**
- * @param {Object} ToDo - ToDo Object
+ * @param {ToDo} ToDo - ToDo Object
  * @param {string} ToDo.content - ToDo 상세 내용
  * @param {string} ToDo.categories - ToDo 분류
  * @param {string} [ToDo.tags] - 추가하고 싶은 태그
@@ -19,20 +27,25 @@ const ToDo = {
 function createToDo({ content, categories, tags }) {}
 
 /**
+ * @param {number} [id] - 특정 ToDo 조회용
  * @returns {Object} ToDo 가져오기
  */
-function readToDo() {}
+function readToDo(id) {}
 
 /**
- * @param {Object} ToDo - ToDo Object
+ * @param {ToDo} ToDo - ToDo Object
  * @param {string} ToDo.content - ToDo 상세 내용
  * @param {string} ToDo.categories - ToDo 분류
+ * @param {boolean} ToDo.isDone - ToDo 완료 여부
  * @param {string} [ToDo.tags] - 추가하고 싶은 태그
  */
-function updateToDos({ content, categories, tags }) {}
+function updateToDos({ content, categories, isDone, tags }) {}
 
 /**
- * @param {Object} ToDo - ToDo Object
- * @param {number} ToDo.id - 지울 ToDo ID
+ * @param {null} - 모든 목록 삭제
+ * @param {ToDo} [ToDo] - ToDo Object
+ * @param {number} [ToDo.id] - 특정 ToDo 제거용
+ * @param {string} [ToDo.tags.tagName] - 특정 ToDo의 특정 태그 제거용
+ * @param {string} [ToDo.tags] - 특정 ToDo의 모든 태그 제거
  */
-function deleteToDos({ id }) {}
+function deleteToDos({ id, tags }) {}
