@@ -1,8 +1,8 @@
 interface IToDo {
-  id: number;
+  id?: number;
   content: string;
   isDone: boolean;
-  categories: string;
+  category: string;
   tags?: string[];
 }
 
@@ -10,12 +10,12 @@ type IToDoList = IToDo[];
 
 const toDoList: IToDoList = [];
 let idx = 1;
-function createToDo({ content, categories, tags, isDone = false }: IToDo) {
+function createToDo({ content, category, tags, isDone = false }: IToDo) {
   const newToDo: IToDo = {
     id: idx,
     content,
     isDone,
-    categories,
+    category,
     tags,
   };
   toDoList.push(newToDo);
@@ -24,39 +24,45 @@ function createToDo({ content, categories, tags, isDone = false }: IToDo) {
 }
 
 function readToDo(id?: number) {
-  if (id) return toDoList.find((toDo) => toDo.id === id);
-  return toDoList;
+  if (id) {
+    const toDoById = toDoList.find((toDo) => toDo.id === id);
+    return console.log(`ToDo ${id} : ${JSON.stringify(toDoById)}`);
+  }
+  return console.log(`All ToDos : ${JSON.stringify(toDoList)}`);
 }
 
-function updateToDo({ id, content, categories, isDone, tags }: IToDo) {
+function updateToDo({ id, content, category, isDone, tags }: IToDo) {
   const oldToDo = toDoList.find((toDo) => toDo.id === id);
   const newToDo = {
     ...oldToDo,
     content,
-    categories,
+    category,
     isDone,
     tags,
   };
   const oldToDoIdx = toDoList.findIndex((toDo) => toDo.id === id);
-  return [
+  const newToDoList = [
     ...toDoList.slice(0, oldToDoIdx),
     newToDo,
     ...toDoList.slice(oldToDoIdx + 1),
   ];
+  return console.log(`update ToDo ${id} : ${JSON.stringify(newToDoList)}`);
 }
 
 type tagName = string;
 
 function deleteAllToDos() {
-  return toDoList.splice(0, toDoList.length);
+  toDoList.splice(0, toDoList.length);
+  return console.log(`Empty List : ${JSON.stringify(toDoList)}`);
 }
 
 function deleteToDo(id: number) {
-  return toDoList.filter((toDo) => toDo.id !== id);
+  const delToDoById = toDoList.filter((toDo) => toDo.id !== id);
+  return console.log(`Delete ToDo ${id} : ${JSON.stringify(delToDoById)}`);
 }
 
-function deleteAllTags(id: number, tags: tagName[]) {
-  return toDoList.map((toDo) => {
+function deleteAllTags(id: number) {
+  const delAllTagsById = toDoList.find((toDo) => {
     if (toDo.id === id) {
       toDo = {
         ...toDo,
@@ -64,6 +70,9 @@ function deleteAllTags(id: number, tags: tagName[]) {
       };
     }
   });
+  return console.log(
+    `Empty Tags ToDo ${id} : ${JSON.stringify(delAllTagsById)}`
+  );
 }
 
 function deleteTag(id: number, targetTag: tagName) {
@@ -78,4 +87,69 @@ function deleteTag(id: number, targetTag: tagName) {
   });
 }
 
-export default toDoList;
+createToDo({
+  id: idx,
+  content: "hi",
+  category: "bow",
+  tags: ["test"],
+  isDone: false,
+});
+
+createToDo({
+  id: idx,
+  content: "hello",
+  category: "bow",
+  tags: ["test"],
+  isDone: false,
+});
+
+readToDo();
+readToDo(2);
+
+updateToDo({
+  id: 1,
+  content: "hi",
+  category: "bow",
+  tags: ["test"],
+  isDone: true,
+});
+
+deleteAllToDos();
+
+createToDo({
+  id: idx,
+  content: "hi",
+  category: "bow",
+  tags: ["test"],
+  isDone: false,
+});
+
+createToDo({
+  id: idx,
+  content: "hello",
+  category: "bow",
+  tags: ["test"],
+  isDone: false,
+});
+
+createToDo({
+  id: idx,
+  content: "bye",
+  category: "shake",
+  tags: ["behave"],
+  isDone: false,
+});
+
+readToDo();
+
+deleteToDo(4);
+
+updateToDo({
+  id: 5,
+  content: "hi",
+  category: "bow",
+  tags: ["test", "behave"],
+  isDone: true,
+});
+
+deleteAllTags(5);
