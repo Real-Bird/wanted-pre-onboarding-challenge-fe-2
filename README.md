@@ -13,3 +13,24 @@
 
 [과제 안내](https://gist.github.com/pocojang/3c3d4470a3d2a978b5ebfb3f613e40fa)
 [velog.io/@yijaee - JSDoc을 사용해 JavaScript 파일 문서화하기](https://velog.io/@yijaee/JSDoc%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%B4-JavaScript-%ED%8C%8C%EC%9D%BC-%EB%AC%B8%EC%84%9C%ED%99%94%ED%95%98%EA%B8%B0)
+
+```typescript
+const Route = {
+  ABOUT: "/about",
+  TOPICS: "/topics",
+} as const;
+
+/**
+ * 타입 좁히기!!
+ */
+type RoutePaths = typeof Route[keyof typeof Route];
+
+function changeRoute(newPath: RoutePaths) {
+  const state = { page_id: 1, user_id: 5 };
+  const title = "";
+
+  history.pushState(state, title, newPath);
+}
+
+window.addEventListener("popstate", () => changeRoute("/about"));
+```
