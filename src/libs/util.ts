@@ -1,14 +1,17 @@
-import { ToDoList, ToDoObj } from "ToDoList-Module";
-
-export function updateToDoList(
-  toDoList: ToDoList,
-  newToDo: ToDoObj,
-  oldToDoIdx: number
+export function newList(
+  list: ToDoList,
+  newElement: ToDo,
+  oldListIdx: number
 ): ToDoList {
   const newToDoList = [
-    ...toDoList.slice(0, oldToDoIdx),
-    newToDo,
-    ...toDoList.slice(oldToDoIdx + 1),
+    ...list.slice(0, oldListIdx),
+    newElement,
+    ...list.slice(oldListIdx + 1),
   ];
   return newToDoList;
+}
+
+export function findTag(tags: TagList, tagName: string) {
+  const tagIdx = tags.findIndex((tag) => tag === tagName);
+  return tagIdx;
 }

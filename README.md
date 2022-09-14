@@ -33,4 +33,12 @@ function changeRoute(newPath: RoutePaths) {
 }
 
 window.addEventListener("popstate", () => changeRoute("/about"));
+
+type List<Todo>
+type Model<Todo>
+type Controller<Todo>
 ```
+
+## 발생한 문제
+
+- 전역 `type` 선언 시 코드 내 에러는 발생하지 않으나 런타임이 안 됨.
