@@ -8,19 +8,21 @@ import {
   ToggleIsDone,
   UpdateToDo,
 } from "ToDoList/controller";
-import { findTag, newList } from "./libs/util";
+import { TagName, ToDo, ToDoId, ToDoList } from "ToDoList/model";
+import { newList } from "./libs/util";
 
-export const readToDoList: ReadToDoList = (toDoList) => {
-  return toDoList;
+export const readToDoList: ReadToDoList<ToDoList> = (toDoList) => {
+  const stringifyToDoList = JSON.stringify(toDoList);
+  return JSON.parse(stringifyToDoList);
 };
 
-export const readToDoById: ReadToDoById = (toDoList, id) => {
+export const readToDoById: ReadToDoById<ToDoList, ToDoId> = (toDoList, id) => {
   const toDoById = toDoList.find((toDo) => toDo.id === id);
   if (toDoById) return toDoById;
   throw Error(`Not Found ToDo by ${id}!`);
 };
 
-export const toggleIsDone: ToggleIsDone = (toDoList, id) => {
+export const toggleIsDone: ToggleIsDone<ToDoList, ToDoId> = (toDoList, id) => {
   const oldToDo = toDoList.find((toDo) => toDo.id === id);
   if (oldToDo) {
     const oldToDoIdx = toDoList.findIndex((toDo) => toDo.id === id);
@@ -29,14 +31,13 @@ export const toggleIsDone: ToggleIsDone = (toDoList, id) => {
       isDone: !oldToDo?.isDone,
     };
     const newToDoList = newList(toDoList, newToDo, oldToDoIdx);
-    toDoList.splice(0, toDoList.length);
-    toDoList.concat(newToDoList);
+    toDoList.splice(0, toDoList.length, ...newToDoList);
     return toDoList;
   }
   throw Error("Something wrong happens!");
 };
 
-export const updateToDoList: UpdateToDo = (
+export const updateToDoList: UpdateToDo<ToDoList, ToDoId> = (
   toDoList,
   id,
   updateKey,
@@ -51,24 +52,26 @@ export const updateToDoList: UpdateToDo = (
       category: updateKey === "category" ? updateValue : oldToDo.category,
     };
     const newToDoList = newList(toDoList, newToDo, oldToDoIdx);
-    toDoList.splice(0, toDoList.length);
-    toDoList.concat(newToDoList);
+    toDoList.splice(0, toDoList.length, ...newToDoList);
     return toDoList;
   }
   throw Error("Something wrong happens!");
 };
 
-export const emptyToDoList: EmptyToDoList = (toDoList) => {
+export const emptyToDoList: EmptyToDoList<ToDoList> = (toDoList) => {
   toDoList.splice(0, toDoList.length);
   return toDoList;
 };
 
-export const deleteToDo: DeleteToDoById = (toDoList, id) => {
+export const deleteToDo: DeleteToDoById<ToDoList, ToDoId> = (toDoList, id) => {
   const delToDoById = toDoList.filter((toDo) => toDo.id !== id);
   return delToDoById;
 };
 
-export const deleteAllTags: DeleteAllTags = (toDoList, id) => {
+export const deleteAllTags: DeleteAllTags<ToDoList, ToDoId> = (
+  toDoList,
+  id
+) => {
   const oldToDo = toDoList.find((toDo) => toDo.id === id);
   if (oldToDo) {
     const oldToDoIdx = toDoList.findIndex((toDo) => toDo.id === id);
@@ -77,25 +80,26 @@ export const deleteAllTags: DeleteAllTags = (toDoList, id) => {
       tags: [],
     };
     const newToDoList = newList(toDoList, newToDo, oldToDoIdx);
-    toDoList.splice(0, toDoList.length);
-    toDoList.concat(newToDoList);
+    toDoList.splice(0, toDoList.length, ...newToDoList);
     return toDoList;
   }
   throw Error("Something wrong happens!");
 };
 
-export const deleteTag: DeleteTagById = (toDoList, id, targetTag) => {
+export const deleteTag: DeleteTagById<ToDoList, ToDoId, TagName> = (
+  toDoList,
+  id,
+  targetTag
+) => {
   const oldToDo = toDoList.find((toDo) => toDo.id === id);
   if (oldToDo) {
     const oldToDoIdx = toDoList.findIndex((toDo) => toDo.id === id);
-    const targetTagIdx = findTag(oldToDo.tags, targetTag);
     const newTagToDo: ToDo = {
       ...oldToDo,
-      tags: oldToDo.tags.splice(targetTagIdx, 1),
+      tags: oldToDo.tags.filter((tag) => tag !== targetTag),
     };
     const newToDoList = newList(toDoList, newTagToDo, oldToDoIdx);
-    toDoList.splice(0, toDoList.length);
-    toDoList.concat(newToDoList);
+    toDoList.splice(0, toDoList.length, ...newToDoList);
     return toDoList;
   }
   throw Error("Something wrong happens!");
