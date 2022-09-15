@@ -1,5 +1,4 @@
-import { CreateToDo } from "ToDoList/controller";
-import { ToDo, ToDoId } from "ToDoList/model";
+import { CreateToDo, ToDo, ToDoId } from "ToDoList";
 
 let idx: ToDoId = 1;
 

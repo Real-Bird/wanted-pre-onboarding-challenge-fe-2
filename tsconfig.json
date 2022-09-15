@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES6",
     "lib": ["dom", "dom.iterable", "ES6"],
     "outDir": "test",
     "allowJs": true,
@@ -10,11 +10,12 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src/*", "**/*.ts"],
+  "exclude": ["node_modules"]
 }

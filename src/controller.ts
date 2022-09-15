@@ -1,4 +1,8 @@
 import {
+  TagName,
+  ToDo,
+  ToDoId,
+  ToDoList,
   DeleteAllTags,
   DeleteTagById,
   DeleteToDoById,
@@ -7,8 +11,7 @@ import {
   ReadToDoList,
   ToggleIsDone,
   UpdateToDo,
-} from "ToDoList/controller";
-import { TagName, ToDo, ToDoId, ToDoList } from "ToDoList/model";
+} from "ToDoList";
 import { newList } from "./libs/util";
 
 export const readToDoList: ReadToDoList<ToDoList> = (toDoList) => {

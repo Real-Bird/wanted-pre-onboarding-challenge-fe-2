@@ -1,4 +1,4 @@
-import { ToDo, ToDoList } from "ToDoList/model";
+import { ToDo, ToDoList } from "ToDoList";
 import {
   deleteAllTags,
   deleteTag,

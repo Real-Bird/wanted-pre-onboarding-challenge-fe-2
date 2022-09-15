@@ -1,4 +1,4 @@
-declare module "ToDoList/model" {
+declare module "ToDoList" {
   export type ToDoId = number;
   export type TagName = string;
   export type TagList = TagName[];
@@ -10,40 +10,38 @@ declare module "ToDoList/model" {
     tags: TagList;
   }
   type IsDone = boolean;
-  type ToDoList = ToDo[];
-}
+  export type ToDoList = ToDo[];
 
-declare module "ToDoList/controller" {
-  type CreateToDo = (
+  export type CreateToDo = (
     newTodo: Pick<ToDo, "content" | "category" | "tags">
   ) => ToDo;
-  type ReadToDoList<ToDoList> = (toDoList: ToDoList) => ToDoList;
-  type ReadToDoById<ToDoList, ToDoId> = (
+  export type ReadToDoList<ToDoList> = (toDoList: ToDoList) => ToDoList;
+  export type ReadToDoById<ToDoList, ToDoId> = (
     toDoList: ToDoList,
     id: ToDoId
   ) => ToDo;
 
-  type ToggleIsDone<ToDoList, ToDoId> = (
+  export type ToggleIsDone<ToDoList, ToDoId> = (
     toDoList: ToDoList,
     id: ToDoId
   ) => ToDoList;
-  type UpdateToDo<ToDoList, ToDoId> = (
+  export type UpdateToDo<ToDoList, ToDoId> = (
     toDoList: ToDoList,
     id: ToDoId,
     updateKey: "content" | "category",
     updateValue: string
   ) => ToDoList;
 
-  type EmptyToDoList<ToDoList> = (toDoList: ToDoList) => ToDoList;
-  type DeleteToDoById<ToDoList, ToDoId> = (
+  export type EmptyToDoList<ToDoList> = (toDoList: ToDoList) => ToDoList;
+  export type DeleteToDoById<ToDoList, ToDoId> = (
     toDoList: ToDoList,
     id: ToDoId
   ) => ToDoList;
-  type DeleteAllTags<ToDoList, ToDoId> = (
+  export type DeleteAllTags<ToDoList, ToDoId> = (
     toDoList: ToDoList,
     id: ToDoId
   ) => ToDoList;
-  type DeleteTagById<ToDoList, ToDoId, TagName> = (
+  export type DeleteTagById<ToDoList, ToDoId, TagName> = (
     toDoList: ToDoList,
     id: ToDoId,
     targetTag: TagName
