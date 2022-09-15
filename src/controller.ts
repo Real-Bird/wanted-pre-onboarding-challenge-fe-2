@@ -67,8 +67,13 @@ export const emptyToDoList: EmptyToDoList<ToDoList> = (toDoList) => {
 };
 
 export const deleteToDo: DeleteToDoById<ToDoList, ToDoId> = (toDoList, id) => {
-  const delToDoById = toDoList.filter((toDo) => toDo.id !== id);
-  return delToDoById;
+  const oldToDo = toDoList.find((toDo) => toDo.id === id);
+  if (oldToDo) {
+    const oldToDoIdx = toDoList.findIndex((toDo) => toDo.id === id);
+    toDoList.splice(oldToDoIdx, 1);
+    return toDoList;
+  }
+  throw Error("Something wrong happens!");
 };
 
 export const deleteAllTags: DeleteAllTags<ToDoList, ToDoId> = (

@@ -34,11 +34,23 @@ function changeRoute(newPath: RoutePaths) {
 
 window.addEventListener("popstate", () => changeRoute("/about"));
 
-type List<Todo>
-type Model<Todo>
-type Controller<Todo>
+// List<Todo>
+// Model<Todo>
+// Controller<Todo>
+
+class List<T> {
+  /**
+   * app
+   * => Todo, Kanban, shopping mall
+   * 로직은 최대한 건들지 않고 편하게 만들자!!
+   */
+  constructor(app: T) {
+    this.list = app.list;
+  }
+}
 ```
 
 ## 발생한 문제
 
-- 전역 `type` 선언 시 코드 내 에러는 발생하지 않으나 런타임이 안 됨.
+- ~~전역 `type` 선언 시 코드 내 에러는 발생하지 않으나 런타임이 안 됨.~~
+  - 해결 : `tsconfig.json`에 `"ts-node":{"files":true}` 추가
