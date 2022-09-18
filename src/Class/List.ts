@@ -1,5 +1,3 @@
-import { ToDo, ToDoList } from "ToDoList";
-
 class List implements ToDoList {
   public list: ToDo[];
   constructor() {

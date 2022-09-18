@@ -1,4 +1,8 @@
-import { CreateToDo, ToDo, ToDoId } from "ToDoList";
+import { ToDo, ToDoId } from "ToDoList";
+
+type CreateToDo = (
+  newTodo: Pick<ToDo, "content" | "category" | "tags">
+) => ToDo;
 
 let idx: ToDoId = 1;
 

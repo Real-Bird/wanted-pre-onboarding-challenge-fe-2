@@ -1,5 +1,3 @@
-import { TagName, ToDo } from "ToDoList";
-
 let id = 1;
 
 class Model implements ToDo {
