@@ -51,3 +51,5 @@ console.log("'Delete All Tags ToDo 3' : ", readToDoById(3));
 
 deleteTagById(5, "behave");
 console.log("'Delete Tag 'behave' ToDo 5' : ", readToDoById(5));
+
+console.log("'All ToDoList' : ", readToDoList());

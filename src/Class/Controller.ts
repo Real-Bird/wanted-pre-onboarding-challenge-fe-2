@@ -2,8 +2,6 @@ import { ToDoListController } from "ToDoList";
 import { newList } from "../libs/util";
 import List from "./List";
 
-type ReturnType<T> = T | never;
-
 class Controller extends List implements ToDoListController {
   constructor() {
     super();
